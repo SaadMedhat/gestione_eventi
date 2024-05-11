@@ -124,7 +124,13 @@ relatore_data = [
         "Full Stack Developer",
     ),
     ("emmawatson@example.com", "Emma", "Watson", "1234567891", "Data Science Expert"),
-    ("robertsmith@example.com", "Robert", "Smith", "0987654322", "Cybersecurity Specialist"),
+    (
+        "robertsmith@example.com",
+        "Robert",
+        "Smith",
+        "0987654322",
+        "Cybersecurity Specialist",
+    ),
     (
         "sophiajohnson@example.com",
         "Sophia",
@@ -132,8 +138,20 @@ relatore_data = [
         "9876543211",
         "Cloud Computing Expert",
     ),
-    ("oliviawilliams@example.com", "Olivia", "Williams", "1234567892", "Blockchain Expert"),
-    ("jamesbrown@example.com", "James", "Brown", "0987654323", "Quantum Computing Specialist"),
+    (
+        "oliviawilliams@example.com",
+        "Olivia",
+        "Williams",
+        "1234567892",
+        "Blockchain Expert",
+    ),
+    (
+        "jamesbrown@example.com",
+        "James",
+        "Brown",
+        "0987654323",
+        "Quantum Computing Specialist",
+    ),
     (
         "emilydavis@example.com",
         "Emily",
@@ -201,7 +219,7 @@ transazione_data = [
 intervento_data = [
     ("johndoe@example.com", 1),
     ("janesmith@example.com", 2),
-    ("michaeljohnson@example.com", 3),
+    # ("michaeljohnson@example.com", 3),
     ("emmawatson@example.com", 4),
     ("robertsmith@example.com", 5),
     ("sophiajohnson@example.com", 6),
@@ -224,20 +242,25 @@ finanziamento_data = [
 ]
 
 feedback_data = [
-    ("participant1@example.com", 1, 5, "Great conference!"),
-    ("participant2@example.com", 2, 4, "Enjoyed the workshop."),
-    ("participant3@example.com", 3, 4, "Very informative bootcamp."),
-    ("participant4@example.com", 4, 5, "Informative seminar!"),
-    ("participant5@example.com", 5, 4, "Loved the workshop."),
-    ("participant6@example.com", 6, 4, "Great bootcamp."),
-    ("participant7@example.com", 7, 5, "Excellent conference!"),
-    ("participant8@example.com", 8, 4, "Very useful workshop."),
-    ("participant9@example.com", 9, 4, "Informative bootcamp."),
+    ("participant1@example.com", 1, 10, "Great conference!"),
+    ("participant2@example.com", 2, 8, "Enjoyed the workshop."),
+    ("participant3@example.com", 3, 8, "Very informative bootcamp."),
+    ("participant4@example.com", 4, 10, "Informative seminar!"),
+    ("participant2@example.com", 4, 7, "Very useful seminar"),
+    ("participant5@example.com", 5, 8, "Loved the workshop."),
+    ("participant6@example.com", 6, 8, "Great bootcamp."),
+    ("participant7@example.com", 7, 10, "Excellent conference!"),
+    ("participant8@example.com", 8, 8, "Very useful workshop."),
+    ("participant9@example.com", 9, 8, "Informative bootcamp."),
 ]
 
 iscrizione_data = [
     ("participant1@example.com", 1, 50.00, "2024-05-15"),
+    ("participant2@example.com", 1, 50.00, "2024-05-15"),
+    ("participant3@example.com", 1, 50.00, "2024-05-15"),
     ("participant2@example.com", 2, 30.00, "2024-07-01"),
+    ("participant5@example.com", 2, 30.00, "2024-07-01"),
+    ("participant6@example.com", 2, 30.00, "2024-07-01"),
     ("participant3@example.com", 3, 70.00, "2024-07-25"),
     ("participant4@example.com", 4, 40.00, "2024-08-15"),
     ("participant5@example.com", 5, 35.00, "2024-10-01"),

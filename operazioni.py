@@ -6,100 +6,6 @@ cursor = conn.cursor()
 
 # cursor.execute(
 #     """
-#         SELECT Evento.ID
-#         FROM Evento
-#         WHERE Evento.Data = "15/05/2024"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT F.EmailSponsor, SUM(Importo)
-#         FROM Evento as E JOIN Finanziamento as F ON E.ID = F.IdEvento
-#         WHERE E.Nome = "Conference on AI"
-#         GROUP BY F.EmailSponsor
-#     """
-# )
-
-# # query sbagliata
-# # cursore.execute(
-# #     """
-# #         SELECT A.Descrizione
-# #         FROM Evento as E JOIN Attivita as A ON Evento.ID = A.idEvento
-# #         WHERE Evento.Nome = "Conference on AI    """
-# # )
-
-# cursor.execute(
-#     """
-#         SELECT Nome, Cognome, Cellulare, Email
-#         FROM Relatore
-#         WHERE Competenza = "Full Stack Developer"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT F.Commento 
-#         FROM Evento as E JOIN Feedback as F ON F.IdEvento = E.ID
-#         WHERE E.Nome = "Conference on AI"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT A.*
-#         FROM Evento as E JOIN Attivita as A ON E.ID = A.IdEvento
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT A.ID, A.Descrizione, A.Durata,   
-#         A.Ora_inizio
-#         FROM Attivita A JOIN Intervento I ON A.ID = I.IdAttivita
-#         WHERE A.IdEvento = "1"
-#         GROUP BY A.ID
-#         HAVING COUNT(I.EmailRelatore) >= 1;
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT count(*) as NumeroPartecipanti
-#         FROM Evento as E JOIN Iscrizione as I ON E.ID = I.IdEvento
-#         WHERE E.Nome = "Conference on AI"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT AVG(F.Valutazione) as ValutazioneMedia
-#         FROM Evento as E JOIN Feedback as F ON F.IdEvento = E.ID
-#         WHERE E.Nome = "Conference on AI"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT AVG(F.Valutazione)
-#         FROM Evento as E JOIN Feedback as F ON F.IdEvento = E.ID
-#         WHERE E.Nome = "Conference on AI"
-#     """
-# )
-
-# cursor.execute(
-#     """
-#         SELECT E.Budget + SUM(F.Importo) - L.Costo - SUM(T.Ammontare) as Bilancio
-#         FROM Evento as E 
-#         JOIN Finanziamento as F ON E.ID = F.IdEvento 
-#         JOIN Luogo as L ON E.LuogoIndirizzo = L.Indirizzo
-#         JOIN Transazione as T ON T.IdEvento = E.ID
-#         WHERE E.Nome = "Conference on AI"
-#     """
-# )
-
-# cursor.execute(
-#     """
 #         INSERT INTO Evento(ID, Organizzatore, Nome, Descrizione, Budget, Data, Ora)
 #         VALUES (0001, "Alessandro Neri", "Chess Openings", "Evento per gli appassionato del gioco degli scacchi", 5000, 15/05/2024, "10:00:00");
 #     """
@@ -119,12 +25,6 @@ cursor = conn.cursor()
 #     """
 # )
 
-# conn.commit()
-
-
-# risultati = cursor.fetchall()
-# for persona in risultati:
-#     print(persona)
 
 queries = [
     """
@@ -153,30 +53,31 @@ queries = [
     WHERE E.ID = 4
     """,
     """
-    SELECT A.*
+    SELECT A.ID, A.Descrizione, A.Ora_inizio, A.Durata
     FROM Evento as E JOIN Attivita as A ON E.ID = A.IdEvento
+    WHERE E.ID = 3
     """,
     """
-    SELECT A.ID, A.Descrizione, A.Durata, A.Ora_inizio
-    FROM Attivita A JOIN Intervento I ON A.ID = I.IdAttivita
-    WHERE A.IdEvento = "1"
+    SELECT E.Nome, A.ID, A.Descrizione, A.Ora_inizio, A.Durata
+    FROM Evento as E JOIN Attivita as A ON E.ID = A.IdEvento JOIN Intervento as I ON A.ID = I.IdAttivita
+    WHERE E.ID = 3
     GROUP BY A.ID
     HAVING COUNT(I.EmailRelatore) >= 1
     """,
     """
-    SELECT count(*) as NumeroPartecipanti
+    SELECT count(*) as "Numero Partecipanti"
     FROM Evento as E JOIN Iscrizione as I ON E.ID = I.IdEvento
-    WHERE E.Nome = "Conference on AI"
+    WHERE E.ID = 1
     """,
     """
-    SELECT AVG(F.Valutazione) as ValutazioneMedia
-    FROM Evento as E JOIN Feedback as F ON F.IdEvento = E.ID
-    WHERE E.Nome = "Conference on AI"
+    SELECT SUM(T.Ammontare) as "Spesa Totale"
+    FROM Evento as E JOIN Transazione as T ON E.ID = T.IdEvento
+    WHERE E.ID = 4
     """,
     """
-    SELECT AVG(F.Valutazione)
+    SELECT AVG(F.Valutazione) as "Valutazione Media"
     FROM Evento as E JOIN Feedback as F ON F.IdEvento = E.ID
-    WHERE E.Nome = "Conference on AI"
+    WHERE E.ID = 4
     """,
     """
     SELECT E.Budget + SUM(F.Importo) - L.Costo - SUM(T.Ammontare) as Bilancio
@@ -184,11 +85,14 @@ queries = [
     JOIN Finanziamento as F ON E.ID = F.IdEvento 
     JOIN Luogo as L ON E.LuogoIndirizzo = L.Indirizzo
     JOIN Transazione as T ON T.IdEvento = E.ID
-    WHERE E.Nome = "Conference on AI"
+    WHERE E.ID = 1
     """,
 ]
 
-# Execute queries and print results
+
+conn.commit()
+
+
 for idx, query in enumerate(queries):
     print(f"\nQuery {idx+1}:\n{query}\n")
     cursor.execute(query)
