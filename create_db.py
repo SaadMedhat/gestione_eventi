@@ -4,20 +4,21 @@ conn = sqlite3.connect("eventi_demo.db")
 
 cursor = conn.cursor()
 
-# Create tables
 cursor.execute(
     """
-    CREATE TABLE Evento (
-        ID INTEGER PRIMARY KEY,
-        Organizzatore VARCHAR(64),
-        Nome VARCHAR(64),
-        Descrizione VARCHAR(255),
-        Budget DECIMAL,
+      CREATE TABLE Evento (
+        ID int PRIMARY KEY,
+        Organizzatore varchar(64),
+        Nome varchar(64),
+        Descrizione varchar(255),
+        Budget DECIMAL CHECK (Budget >= 0),
         Data DATE,
         Ora TIME,
-        LuogoIndirizzo VARCHAR(128),
+        Costo_del_biglietto DECIMAL CHECK(Costo_del_biglietto > 0),
+        LuogoIndirizzo Indirizzo,
         FOREIGN KEY (LuogoIndirizzo) REFERENCES Luogo(Indirizzo)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -29,7 +30,8 @@ cursor.execute(
         Ora_inizio TIME,
         IdEvento INTEGER,
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -40,7 +42,8 @@ cursor.execute(
         Cognome VARCHAR(64),
         Cellulare VARCHAR(10),
         Competenza VARCHAR(64)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -49,7 +52,8 @@ cursor.execute(
         Email VARCHAR(128) PRIMARY KEY,
         Nome VARCHAR(64),
         Cellulare VARCHAR(10)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -59,39 +63,43 @@ cursor.execute(
         Nome VARCHAR(64),
         Cognome VARCHAR(64),
         Cellulare VARCHAR(10)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
     """
     CREATE TABLE Luogo (
-        Indirizzo VARCHAR(128) PRIMARY KEY,
-        Capacita INTEGER,
-        Costo DECIMAL
-    )"""
+        Indirizzo varchar(128) PRIMARY KEY,
+        Capacita int,
+        Costo DECIMAL CHECK (Costo >= 0)
+    )
+    """
 )
 
 cursor.execute(
     """
     CREATE TABLE Pubblicita (
-        ID INTEGER PRIMARY KEY,
-        Visualizzazioni INTEGER,
-        Canale VARCHAR(32),
-        IdEvento INTEGER,
+        ID int PRIMARY KEY,
+        Visualizzazioni int CHECK (Visualizzazioni >= 0),
+        Canale varchar(32) CHECK (Canale IN ('Facebook', 'Instagram', 'X', 'Threads')),
+        IdEvento int,
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
     """
     CREATE TABLE Transazione (
-        ID INTEGER PRIMARY KEY,
-        Descrizione VARCHAR(255),
+        ID int PRIMARY KEY,
+        Descrizione varchar(255),
         Data DATE,
-        Ammontare DECIMAL,
-        IdEvento INTEGER,
+        Ammontare DECIMAL CHECK(Ammontare >= 0),
+        IdEvento int,
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -102,32 +110,35 @@ cursor.execute(
         PRIMARY KEY (EmailRelatore, IdAttivita),
         FOREIGN KEY (EmailRelatore) REFERENCES Relatore(Email),
         FOREIGN KEY (IdAttivita) REFERENCES Attivita(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
     """
     CREATE TABLE Finanziamento (
-        EmailSponsor VARCHAR(128),
-        IdEvento INTEGER,
-        Importo DECIMAL,
+        EmailSponsor varchar(128),
+        IdEvento int,
+        Importo DECIMAL CHECK (Importo >= 0),
         PRIMARY KEY (EmailSponsor, IdEvento),
         FOREIGN KEY (EmailSponsor) REFERENCES Sponsor(Email),
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
     """
     CREATE TABLE Feedback (
-        EmailPartecipante VARCHAR(128),
+        EmailPartecipante varchar(128),
         IdEvento INTEGER,
-        Valutazione INTEGER,
-        Commento VARCHAR(255),
+        Valutazione INTEGER CHECK (Valutazione >= 1 and Valutazione <= 10),
+        Commento varchar(255),
         PRIMARY KEY (EmailPartecipante, IdEvento),
         FOREIGN KEY (EmailPartecipante) REFERENCES Partecipante(Email),
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 cursor.execute(
@@ -135,12 +146,12 @@ cursor.execute(
     CREATE TABLE Iscrizione (
         EmailPartecipante VARCHAR(128),
         IdEvento INTEGER,
-        Costo_del_biglietto DECIMAL,
         Data_di_iscrizione DATE,
         PRIMARY KEY (EmailPartecipante, IdEvento),
         FOREIGN KEY (EmailPartecipante) REFERENCES Partecipante(Email),
         FOREIGN KEY (IdEvento) REFERENCES Evento(ID)
-    )"""
+    )
+    """
 )
 
 conn.commit()

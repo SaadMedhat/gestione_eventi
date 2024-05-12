@@ -14,6 +14,7 @@ eventi_data = [
         5000.00,
         "2024-06-15",
         "09:00:00",
+        50,
         "123 Main Street",
     ),
     (
@@ -24,6 +25,7 @@ eventi_data = [
         3000.00,
         "2024-07-20",
         "13:30:00",
+        30,
         "456 Elm Street",
     ),
     (
@@ -34,6 +36,7 @@ eventi_data = [
         7000.00,
         "2024-08-10",
         "10:00:00",
+        70,
         "789 Oak Avenue",
     ),
     (
@@ -44,6 +47,7 @@ eventi_data = [
         4000.00,
         "2024-09-15",
         "10:00:00",
+        40,
         "321 Pine Street",
     ),
     (
@@ -54,6 +58,7 @@ eventi_data = [
         3500.00,
         "2024-10-20",
         "14:00:00",
+        35,
         "654 Willow Street",
     ),
     (
@@ -64,6 +69,7 @@ eventi_data = [
         6000.00,
         "2024-11-10",
         "11:00:00",
+        60,
         "987 Maple Avenue",
     ),
     (
@@ -74,6 +80,7 @@ eventi_data = [
         4500.00,
         "2024-12-15",
         "09:30:00",
+        45,
         "159 Cedar Street",
     ),
     (
@@ -84,6 +91,7 @@ eventi_data = [
         3200.00,
         "2025-01-20",
         "13:00:00",
+        32,
         "753 Spruce Street",
     ),
     (
@@ -94,6 +102,7 @@ eventi_data = [
         6500.00,
         "2025-02-10",
         "10:30:00",
+        65,
         "369 Birch Avenue",
     ),
 ]
@@ -255,23 +264,23 @@ feedback_data = [
 ]
 
 iscrizione_data = [
-    ("participant1@example.com", 1, 50.00, "2024-05-15"),
-    ("participant2@example.com", 1, 50.00, "2024-05-15"),
-    ("participant3@example.com", 1, 50.00, "2024-05-15"),
-    ("participant2@example.com", 2, 30.00, "2024-07-01"),
-    ("participant5@example.com", 2, 30.00, "2024-07-01"),
-    ("participant6@example.com", 2, 30.00, "2024-07-01"),
-    ("participant3@example.com", 3, 70.00, "2024-07-25"),
-    ("participant4@example.com", 4, 40.00, "2024-08-15"),
-    ("participant5@example.com", 5, 35.00, "2024-10-01"),
-    ("participant6@example.com", 6, 60.00, "2024-10-25"),
-    ("participant7@example.com", 7, 45.00, "2024-11-15"),
-    ("participant8@example.com", 8, 32.00, "2025-01-01"),
-    ("participant9@example.com", 9, 65.00, "2025-01-25"),
+    ("participant1@example.com", 1, "2024-05-15"),
+    ("participant2@example.com", 1, "2024-05-15"),
+    ("participant3@example.com", 1, "2024-05-15"),
+    ("participant2@example.com", 2, "2024-07-01"),
+    ("participant5@example.com", 2, "2024-07-01"),
+    ("participant6@example.com", 2, "2024-07-01"),
+    ("participant3@example.com", 3, "2024-07-25"),
+    ("participant4@example.com", 4, "2024-08-15"),
+    ("participant5@example.com", 5, "2024-10-01"),
+    ("participant6@example.com", 6, "2024-10-25"),
+    ("participant7@example.com", 7, "2024-11-15"),
+    ("participant8@example.com", 8, "2025-01-01"),
+    ("participant9@example.com", 9, "2025-01-25"),
 ]
 
 # Commented code
-cursor.executemany("INSERT INTO Evento VALUES (?, ?, ?, ?, ?, ?, ?, ?)", eventi_data)
+cursor.executemany("INSERT INTO Evento VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", eventi_data)
 cursor.executemany("INSERT INTO Attivita VALUES (?, ?, ?, ?, ?)", attivita_data)
 cursor.executemany("INSERT INTO Relatore VALUES (?, ?, ?, ?, ?)", relatore_data)
 cursor.executemany("INSERT INTO Sponsor VALUES (?, ?, ?)", sponsor_data)
@@ -282,7 +291,7 @@ cursor.executemany("INSERT INTO Transazione VALUES (?, ?, ?, ?, ?)", transazione
 cursor.executemany("INSERT INTO Intervento VALUES (?, ?)", intervento_data)
 cursor.executemany("INSERT INTO Finanziamento VALUES (?, ?, ?)", finanziamento_data)
 cursor.executemany("INSERT INTO Feedback VALUES (?, ?, ?, ?)", feedback_data)
-cursor.executemany("INSERT INTO Iscrizione VALUES (?, ?, ?, ?)", iscrizione_data)
+cursor.executemany("INSERT INTO Iscrizione VALUES (?, ?, ?)", iscrizione_data)
 
 conn.commit()
 
